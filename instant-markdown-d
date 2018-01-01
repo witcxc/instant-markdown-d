@@ -65,7 +65,7 @@ function addSecurityHeaders(req, res, isIndexFile) {
   if (!process.env.INSTANT_MARKDOWN_ALLOW_UNSAFE_CONTENT) {
     if (isIndexFile) {
       // index.html will drop the scripting capabilities upon load.
-      csp.push('script-src ' + CSP_SELF + " 'unsafe-inline'");
+  //    csp.push('script-src ' + CSP_SELF + " 'unsafe-inline'");
       csp.push('sandbox allow-scripts allow-modals allow-forms');
     } else {
       csp.push('script-src ');
@@ -95,6 +95,15 @@ function httpHandler(req, res) {
         addSecurityHeaders(req, res, false);
          // Serve the file out of the current working directory
         send(req, githubUrl[1])
+         .root(process.cwd())
+         .pipe(res);
+        return;
+      }
+      var myimg = req.url.match(/\/(pic\/.+)/);
+      if (myimg) {
+        addSecurityHeaders(req, res, false);
+         // Serve the file out of the current working directory
+        send(req, myimg[1])
          .root(process.cwd())
          .pipe(res);
         return;
@@ -132,6 +141,7 @@ function httpHandler(req, res) {
   }
 }
 
+io.set('log level', 1);
 io.sockets.on('connection', function(sock){
   process.stdout.write('connection established!');
   if (lastWrittenMarkdown) {

@@ -23,12 +23,18 @@
     }
   </style>
   <script src="/socket.io/socket.io.js"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ["\\(","\\)"]], processEscapes: true } });
+  </script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
   <script>
     var socket = io.connect('http://'+ window.location.host +'/');
     socket.on('connect', function () {
       setDisconnected(false);
       socket.on('newContent', function(newHTML) {
         document.querySelector(".markdown-body").innerHTML = newHTML;
+        //MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
       });
       socket.on('die', function(newHTML) {
         window.open('', '_self', '');
@@ -50,10 +56,10 @@
     } catch (e) {
       // Detected that the CSP was active (by the user's preference).
       // Drop capabilities to prevent rendered markdown from executing scripts.
-      var meta = document.createElement('meta');
-      meta.setAttribute('http-equiv', 'Content-Security-Policy');
-      meta.setAttribute('content', "script-src 'none';");
-      document.head.appendChild(meta);
+      //var meta = document.createElement('meta');
+      //meta.setAttribute('http-equiv', 'Content-Security-Policy');
+      //meta.setAttribute('content', "script-src 'none';");
+      //document.head.appendChild(meta);
     }
 
     function setDisconnected(isDisconnected) {
