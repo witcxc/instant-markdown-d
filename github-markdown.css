@@ -50,7 +50,8 @@ td,th {
 .boxed-group {
     position: relative;
     border-radius: 3px;
-    margin-bottom: 30px
+    margin-bottom: 30px;
+    margin-left: 100px;
 }
 
 #readme .markdown-body, #readme .plain {
