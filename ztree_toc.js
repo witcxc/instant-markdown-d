@@ -58,6 +58,11 @@ function factor(opts ,count,current) {
 	 * 根据header创建目录内容
 	 */
 	function create_toc(opts) {
+        opts._header_nodes = [{ id:1, pId:0, name:"Table of Content",open:true}]
+		opts._header_offsets = []
+		//opts._zTree = null
+		opts._headers = []
+
 		$(opts.documment_selector).find(':header').each(function() {
 			var level = parseInt(this.nodeName.substring(1), 10);
 

@@ -8,7 +8,7 @@
   <link rel="stylesheet" type="text/css" href="/github-markdown.css">
   <style>
     .markdown-body {
-      min-width: 200px;
+      min-width: 790px;
       max-width: 790px;
       margin: 0 auto;
       padding: 30px;
@@ -49,11 +49,12 @@ $(document).ready(function(){
       socket.on('newContent', function(newHTML) {
         document.querySelector(".markdown-body").innerHTML = newHTML;
         //MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
- //       $('#tree').innerHTML=""
-        document.querySelector("#tree").innerHTML = "";
+        //  $('#tree').innerHTML=""
+       //document.querySelector("#tree").innerHTML = "";
         $('#tree').ztree_toc({
             is_auto_number: true,
         });
+        console.log(document.querySelector("#tree").innerHTML)
       });
       socket.on('die', function(newHTML) {
         window.open('', '_self', '');
