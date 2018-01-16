@@ -27,6 +27,20 @@
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ["\\(","\\)"]], processEscapes: true } });
   </script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+  <script type="text/javascript" src="jquery-1.4.4.min.js"></script>
+  <script type="text/javascript" src="jquery.ztree.core-3.5.js"></script>
+  <script type="text/javascript" src="ztree_toc.js"></script>
+  <link rel="stylesheet" href="zTreeStyle.css" type="text/css">
+  <script type="text/javascript" >
+$(document).ready(function(){
+    $('#tree').ztree_toc({
+        is_auto_number: false,
+    });
+});
+  </script>
+
+
+
 
   <script>
     var socket = io.connect('http://'+ window.location.host +'/');
@@ -35,6 +49,11 @@
       socket.on('newContent', function(newHTML) {
         document.querySelector(".markdown-body").innerHTML = newHTML;
         //MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
+ //       $('#tree').innerHTML=""
+        document.querySelector("#tree").innerHTML = "";
+        $('#tree').ztree_toc({
+            is_auto_number: true,
+        });
       });
       socket.on('die', function(newHTML) {
         window.open('', '_self', '');
@@ -75,6 +94,8 @@
         <div id="js-repo-pjax-container" class="repository-content context-loader-container">
           <div id="readme" class="boxed-group flush clearfix announce instapaper_body md">
             <article class="markdown-body"></article>
+            <div id="tree" class="ztree">
+    </div>
           </div>
         </div>
       </div>
